@@ -6,10 +6,10 @@ How much bitcoin do you need to retire on, and what can you withdraw each month?
 
 ## What it models
 
-Everything runs in monthly steps.
+Everything runs in steps of your choosing: daily, weekly or monthly (monthly is the default).
 
-1. **Building the stack.** Each month until retirement you buy bitcoin with your monthly amount at that month's price, minus the trading fee. The price compounds by one month of your projected growth rate. You can raise the monthly buys with inflation.
-2. **Retirement.** Each month you sell enough bitcoin to cover that month's withdrawal. You enter the withdrawal in today's dollars. The calculator inflates it to the year you retire, uses that larger figure as your first withdrawal, and keeps raising it with inflation so it holds its purchasing power.
+1. **Building the stack.** Each step until retirement you buy bitcoin with your buy amount at that step's price, minus the trading fee. The price compounds by one step of your projected growth rate. You can raise the buys with inflation.
+2. **Retirement.** Each step you sell enough bitcoin to cover that step's withdrawal. You enter the withdrawal in today's dollars. The calculator inflates it to the year you retire, uses that larger figure as your first withdrawal, and keeps raising it with inflation so it holds its purchasing power.
 3. **Tax and fees.** Tax applies only to the gain above your average cost basis, not to the whole sale. The cost basis blends what you already hold with what you buy along the way. The trading fee applies to both buys and sells.
 
 ### Inputs
@@ -18,11 +18,12 @@ Everything runs in monthly steps.
 | --- | --- |
 | Bitcoin held today | The stack you start with |
 | Price today | Typed in by hand (the page makes no network requests) |
-| Buy each month | Dollars spent on bitcoin every month until you retire |
+| How often you buy and withdraw | Daily, weekly or monthly. Changing it converts your buy and withdrawal amounts to the new schedule |
+| Buy each day / week / month | Dollars spent on bitcoin each step until you retire |
 | Years of buying | How long until you retire |
-| Raise monthly buys with inflation | Optional. Grows the monthly buy amount by the inflation rate |
+| Raise buys with inflation | Optional. Grows the buy amount by the inflation rate |
 | Years the money must last | Length of retirement |
-| Monthly withdrawal to test | In today's dollars. Leave at 0 to test the maximum |
+| Withdrawal to test (per day, week or month) | In today's dollars. Leave at 0 to test the maximum |
 | Bitcoin growth per year | Projected annual growth. Negative values are allowed |
 | Inflation per year | Applied to withdrawals (and to buys, if the option is on) |
 | Cost basis of what you hold | Average price you paid for your existing bitcoin |
