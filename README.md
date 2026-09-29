@@ -9,7 +9,7 @@ How much bitcoin do you need to retire on, and what can you withdraw each month?
 Everything runs in monthly steps.
 
 1. **Building the stack.** Each month until retirement you buy bitcoin with your monthly amount at that month's price, minus the trading fee. The price compounds by one month of your projected growth rate. You can raise the monthly buys with inflation.
-2. **Retirement.** Each month you sell enough bitcoin to cover that month's withdrawal. Withdrawals rise with inflation, so they keep their purchasing power.
+2. **Retirement.** Each month you sell enough bitcoin to cover that month's withdrawal. You enter the withdrawal in today's dollars. The calculator inflates it to the year you retire, uses that larger figure as your first withdrawal, and keeps raising it with inflation so it holds its purchasing power.
 3. **Tax and fees.** Tax applies only to the gain above your average cost basis, not to the whole sale. The cost basis blends what you already hold with what you buy along the way. The trading fee applies to both buys and sells.
 
 ### Inputs
@@ -35,7 +35,7 @@ Everything runs in monthly steps.
 - Bitcoin at retirement, and its value in future and today's dollars
 - Total bought, and average cost basis at retirement
 - The most you could withdraw per month forever, when that is possible
-- For a withdrawal you choose: whether it lasts, and how much bitcoin is left or when it runs out
+- For a withdrawal you choose: what it equals in retirement-year dollars, whether it lasts, and how much bitcoin is left or when it runs out
 - A chart of your bitcoin over time
 
 ### The "forever" figure
