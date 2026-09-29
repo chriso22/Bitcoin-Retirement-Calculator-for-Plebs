@@ -21,8 +21,8 @@ h1{font-size:1.7rem;line-height:1.2;margin:0 0 6px;font-weight:600}
 fieldset{border:0;margin:0 0 14px;padding:0}
 legend{font-weight:600;padding:0;margin-bottom:8px}
 label{display:block;font-size:.9rem;color:var(--mute);margin-bottom:10px}
-input[type=number]{display:block;width:100%;margin-top:3px;padding:8px 10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px}
-input:focus-visible{outline:2px solid var(--acc2);outline-offset:1px}
+input[type=number],select{display:block;width:100%;margin-top:3px;padding:8px 10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px}
+input:focus-visible,select:focus-visible{outline:2px solid var(--acc2);outline-offset:1px}
 label.chk{display:flex;gap:8px;align-items:center}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hero{margin-bottom:16px}
@@ -46,17 +46,18 @@ svg{display:block;width:100%;min-width:420px;height:auto}
 <div class="grid">
 <section class="panel" aria-label="Assumptions">
 <fieldset><legend>Building the stack</legend>
+<label>How often you buy and withdraw<select id="freq"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option></select></label>
 <div class="row">
 <label>Bitcoin held today<input id="held" type="number" min="0" step="any" value="0.1"></label>
 <label>Price today ($)<input id="price" type="number" min="1" step="any" value="100000"></label>
-<label>Buy each month ($)<input id="buy" type="number" min="0" step="any" value="500"></label>
+<label><span id="lblBuy">Buy each month ($)</span><input id="buy" type="number" min="0" step="any" value="500"></label>
 <label>Years of buying<input id="years" type="number" min="1" max="60" step="1" value="15"></label>
 </div>
-<label class="chk"><input id="idx" type="checkbox"> Raise monthly buys with inflation</label>
+<label class="chk"><input id="idx" type="checkbox"> Raise buys with inflation</label>
 </fieldset>
 <fieldset><legend>Retirement</legend>
 <label>Years the money must last<input id="len" type="number" min="1" max="100" step="1" value="25"></label>
-<label>Monthly withdrawal to test, in today's dollars ($). Leave 0 to test the maximum.<input id="target" type="number" min="0" step="any" value="2000"></label>
+<label><span id="lblTgt">Withdrawal to test per month, in today's dollars ($). Leave 0 to test the maximum.</span><input id="target" type="number" min="0" step="any" value="2000"></label>
 </fieldset>
 <fieldset><legend>Estimates</legend>
 <div class="row">
@@ -74,21 +75,23 @@ svg{display:block;width:100%;min-width:420px;height:auto}
 <dl id="out"></dl>
 </div>
 <div class="panel chart"><strong>Your bitcoin over time</strong><div id="chart"></div></div>
-<p class="note">Constant-rate scenario math, not a forecast or advice. Bitcoin will not move in a straight line, so real results can differ a lot. Buys happen at the start of each month. Withdrawals are sold monthly, taxed only on the gain above your average cost basis, which blends what you hold with what you buy.</p>
+<p class="note">Constant-rate scenario math, not a forecast or advice. Bitcoin will not move in a straight line, so real results can differ a lot. Buys happen at the start of each day, week or month, depending on your choice. Withdrawals are sold on the same schedule, taxed only on the gain above your average cost basis, which blends what you hold with what you buy.</p>
 </section>
 </div>
 </main>
 <script>
 (function(){
 var $=function(i){return document.getElementById(i)};
-var ids=["held","price","buy","years","idx","len","target","cagr","infl","basis","tax","fee"];
+var ids=["held","price","buy","years","freq","idx","len","target","cagr","infl","basis","tax","fee"];
 function v(i){var n=parseFloat($(i).value);return isFinite(n)?n:0}
 function usd(n){return isFinite(n)?"$"+Math.round(n).toLocaleString("en-US"):"–"}
 function btc(n){return isFinite(n)?n.toLocaleString("en-US",{maximumFractionDigits:n<1?4:2})+" BTC":"–"}
 function calc(){
 var held=v("held"),P0=Math.max(v("price"),1),c=v("buy"),T=Math.max(Math.round(v("years")),1),L=Math.max(Math.round(v("len")),1),target=v("target");
 var g=v("cagr")/100,inf=v("infl")/100,basis=v("basis"),tax=v("tax")/100,fee=v("fee")/100,idx=$("idx").checked;
-var a=Math.pow(1+g,1/12),b=Math.pow(1+inf,1/12),M=T*12,R=L*12,j,m;
+var fr=$("freq").value,ppy=fr==="daily"?365:fr==="weekly"?52:12,un=fr==="daily"?"day":fr==="weekly"?"week":"month",us=fr==="daily"?"d":fr==="weekly"?"wk":"mo";
+var a=Math.pow(1+g,1/ppy),b=Math.pow(1+inf,1/ppy),M=T*ppy,R=L*ppy,j,m;
+$("lblBuy").textContent="Buy each "+un+" ($)";$("lblTgt").textContent="Withdrawal to test per "+un+", in today's dollars ($). Leave 0 to test the maximum.";
 var st=held,cost=held*basis,tot=0,pts=[st];
 for(j=0;j<M;j++){var cj=c*(idx?Math.pow(b,j):1);st+=cj*(1-fee)/(P0*Math.pow(a,j));cost+=cj;tot+=cj;pts.push(st)}
 var BT=st,bB=BT>0?cost/BT:0,PT=P0*Math.pow(a,M);
@@ -96,7 +99,7 @@ function net(P){return P*(1-fee)-tax*Math.max(P-bB,0)}
 function unit(t){var n=net(P0*Math.pow(a,t));return n>0?Math.pow(b,t)/n:Infinity}
 var K=0;for(m=0;m<R;m++)K+=unit(M+m);
 var w0=BT>0&&isFinite(K)?BT/K:0;
-var N=1200,Ki=0;for(m=0;m<N;m++)Ki+=unit(M+m);
+var N=100*ppy,Ki=0;for(m=0;m<N;m++)Ki+=unit(M+m);
 var r=unit(M+N-1)/unit(M+N-2),fw=null;
 if(r<1&&isFinite(r)&&isFinite(Ki)){Ki+=unit(M+N-1)*r/(1-r);fw=BT>0?BT/Ki:0}
 var tw=target>0?target:w0,run=-1,s2=BT;
@@ -104,15 +107,20 @@ for(m=0;m<R;m++){var sold=tw*unit(M+m);if(sold>s2||!isFinite(sold)){run=m;s2=0;b
 if(run>=0){while(pts.length<M+R+1)pts.push(0)}
 var Pend=P0*Math.pow(a,M+R),remToday=s2*Pend/Math.pow(1+inf,T+L);
 $("heroNum").textContent=usd(w0);
-$("heroLbl").textContent="per month for "+L+" years, in today's dollars and rising with inflation. This uses the whole stack.";
-var status=run>=0?"Runs out after "+Math.floor(run/12)+" yr "+(run%12)+" mo":"Lasts all "+L+" years";
-var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["Max at retirement (future $)",usd(w0*Math.pow(b,M))],["Max withdrawal, forever",fw===null?"Not possible":usd(fw)+" today"],["Withdrawal tested",usd(tw)+"/mo"+(target>0?"":" (max)")],["At retirement (future $)",usd(tw*Math.pow(b,M))+"/mo"],["Result",status],["Bitcoin left over",run>=0?"None":btc(s2)],["Left over (today's $)",usd(run>=0?0:remToday)]];
+$("heroLbl").textContent="per "+un+" for "+L+" years, in today's dollars and rising with inflation. This uses the whole stack.";
+var status=run>=0?"Runs out after "+Math.floor(run/ppy)+" yr "+(run%ppy)+" "+us:"Lasts all "+L+" years";
+var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["Max at retirement (future $)",usd(w0*Math.pow(b,M))],["Max withdrawal, forever",fw===null?"Not possible":usd(fw)+" today"],["Withdrawal tested",usd(tw)+"/"+us+(target>0?"":" (max)")],["At retirement (future $)",usd(tw*Math.pow(b,M))+"/"+us],["Result",status],["Bitcoin left over",run>=0?"None":btc(s2)],["Left over (today's $)",usd(run>=0?0:remToday)]];
 $("out").innerHTML=rows.map(function(x){return"<dt>"+x[0]+"</dt><dd>"+x[1]+"</dd>"}).join("");
 var tot2=pts.length-1,W=640,H=240,pl=48,pb=28,pt=12,pr=10,mx=Math.max.apply(null,pts)||1;
 function X(k){return pl+(W-pl-pr)*k/tot2}function Y(y){return pt+(H-pt-pb)*(1-y/mx)}
-var d=pts.map(function(y,k){return(k?"L":"M")+X(k).toFixed(1)+" "+Y(y).toFixed(1)}).join("");
+var stp=Math.ceil(tot2/600),ks=[],k;for(k=0;k<=tot2;k+=stp)ks.push(k);ks.push(M);ks.push(tot2);ks=ks.sort(function(x,y){return x-y}).filter(function(x,i,r){return i===0||x!==r[i-1]});
+var d=ks.map(function(k,i){return(i?"L":"M")+X(k).toFixed(1)+" "+Y(pts[k]).toFixed(1)}).join("");
 var rx=X(M);
 $("chart").innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Bitcoin held by month: grows until retirement, then draws down"><line x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'" stroke="var(--line)"/><line x1="'+pl+'" y1="'+pt+'" x2="'+pl+'" y2="'+(H-pb)+'" stroke="var(--line)"/><line x1="'+rx+'" y1="'+pt+'" x2="'+rx+'" y2="'+(H-pb)+'" stroke="var(--mute)" stroke-dasharray="4 4"/><path d="'+d+'" fill="none" stroke="var(--acc)" stroke-width="2.5"/><text x="'+(pl-6)+'" y="'+(pt+10)+'" text-anchor="end" font-size="11" fill="var(--mute)">'+mx.toFixed(mx<10?2:0)+'</text><text x="'+(pl-6)+'" y="'+(H-pb)+'" text-anchor="end" font-size="11" fill="var(--mute)">0</text><text x="'+pl+'" y="'+(H-8)+'" font-size="11" fill="var(--mute)">Today</text><text x="'+rx+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="var(--mute)">Retire (year '+T+')</text><text x="'+(W-pr)+'" y="'+(H-8)+'" text-anchor="end" font-size="11" fill="var(--mute)">Year '+(T+L)+'</text></svg>'}
+function per(){var f=$("freq").value;return f==="daily"?365:f==="weekly"?52:12}
+var mo={buy:v("buy"),target:v("target")},cur=12;
+["buy","target"].forEach(function(i){$(i).addEventListener("input",function(){mo[i]=v(i)*cur/12})});
+$("freq").addEventListener("change",function(){cur=per();["buy","target"].forEach(function(i){$(i).value=Math.round(mo[i]*12/cur*100)/100})});
 ids.forEach(function(i){$(i).addEventListener("input",calc);$(i).addEventListener("change",calc)});
 calc();
 })();
