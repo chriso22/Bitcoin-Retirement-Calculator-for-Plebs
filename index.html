@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Bitcoin Retirement Savings Calculator</title>
+<title>Bitcoin Retirement Savings Calculator for Plebs</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{--bg:#f1f4f6;--panel:#fff;--ink:#14202b;--mute:#5b6b78;--line:#d5dde3;--acc:#c96a00;--acc2:#1f5f8b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -38,7 +38,7 @@ svg{display:block;width:100%;min-width:420px;height:auto}
 </head>
 <body>
 <main>
-<h1>Bitcoin retirement savings calculator</h1>
+<h1>Bitcoin Retirement Savings Calculator for Plebs</h1>
 <p class="sub">Start with the bitcoin you hold, buy a set amount each month until you retire, then see the monthly withdrawal that covers your retirement years and whether anything is left.</p>
 <div class="grid">
 <section class="panel" aria-label="Assumptions">
@@ -103,7 +103,7 @@ var Pend=P0*Math.pow(a,M+R),remToday=s2*Pend/Math.pow(1+inf,T+L);
 $("heroNum").textContent=usd(w0);
 $("heroLbl").textContent="per month for "+L+" years, in today's dollars and rising with inflation. This uses the whole stack.";
 var res=run>=0?"Runs out after "+Math.floor(run/12)+" yr "+(run%12)+" mo":"Lasts all "+L+" years, with "+btc(s2)+" left (about "+usd(remToday)+" in today's dollars)";
-var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future dollars)",usd(BT*PT)],["Same amount in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total you buy over "+T+" years",usd(tot)],["Average cost basis at retirement",usd(bB)],["First withdrawal in future dollars",usd(w0*Math.pow(b,M))],["Most you could withdraw forever, per month (today's dollars)",fw===null?"Not possible at these estimates":usd(fw)],["Testing a withdrawal of",usd(tw)+" per month"+(target>0?"":" (the maximum)")],["Result",res]];
+var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future dollars)",usd(BT*PT)],["Same amount in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total you buy over "+T+" years",usd(tot)],["Average cost basis at retirement",usd(bB)],["Total cost of your stack (held plus buys)",usd(cost)],["First withdrawal in future dollars",usd(w0*Math.pow(b,M))],["Most you could withdraw forever, per month (today's dollars)",fw===null?"Not possible at these estimates":usd(fw)],["Testing a withdrawal of",usd(tw)+" per month"+(target>0?"":" (the maximum)")],["Result",res]];
 $("out").innerHTML=rows.map(function(x){return"<dt>"+x[0]+"</dt><dd>"+x[1]+"</dd>"}).join("");
 var tot2=pts.length-1,W=640,H=240,pl=48,pb=28,pt=12,pr=10,mx=Math.max.apply(null,pts)||1;
 function X(k){return pl+(W-pl-pr)*k/tot2}function Y(y){return pt+(H-pt-pb)*(1-y/mx)}
