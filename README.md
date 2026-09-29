@@ -1,4 +1,4 @@
-# Bitcoin Retirement Savings Calculator
+# Bitcoin Retirement Savings Calculator for Plebs
 
 How much bitcoin do you need to retire on, and what can you withdraw each month? Enter the bitcoin you hold today, a monthly dollar amount you will buy until you retire, and how many years the money has to last. The calculator shows the monthly withdrawal that covers those years and whether any bitcoin is left over.
 
