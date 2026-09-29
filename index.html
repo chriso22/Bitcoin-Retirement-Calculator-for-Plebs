@@ -106,7 +106,7 @@ var Pend=P0*Math.pow(a,M+R),remToday=s2*Pend/Math.pow(1+inf,T+L);
 $("heroNum").textContent=usd(w0);
 $("heroLbl").textContent="per month for "+L+" years, in today's dollars and rising with inflation. This uses the whole stack.";
 var status=run>=0?"Runs out after "+Math.floor(run/12)+" yr "+(run%12)+" mo":"Lasts all "+L+" years";
-var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["First withdrawal (future $)",usd(w0*Math.pow(b,M))],["Max withdrawal, forever",fw===null?"Not possible":usd(fw)+" today"],["Withdrawal tested",usd(tw)+"/mo"+(target>0?"":" (max)")],["Result",status],["Bitcoin left over",run>=0?"None":btc(s2)],["Left over (today's $)",usd(run>=0?0:remToday)]];
+var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["Max at retirement (future $)",usd(w0*Math.pow(b,M))],["Max withdrawal, forever",fw===null?"Not possible":usd(fw)+" today"],["Withdrawal tested",usd(tw)+"/mo"+(target>0?"":" (max)")],["At retirement (future $)",usd(tw*Math.pow(b,M))+"/mo"],["Result",status],["Bitcoin left over",run>=0?"None":btc(s2)],["Left over (today's $)",usd(run>=0?0:remToday)]];
 $("out").innerHTML=rows.map(function(x){return"<dt>"+x[0]+"</dt><dd>"+x[1]+"</dd>"}).join("");
 var tot2=pts.length-1,W=640,H=240,pl=48,pb=28,pt=12,pr=10,mx=Math.max.apply(null,pts)||1;
 function X(k){return pl+(W-pl-pr)*k/tot2}function Y(y){return pt+(H-pt-pb)*(1-y/mx)}
