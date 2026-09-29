@@ -31,7 +31,9 @@ label.chk{display:flex;gap:8px;align-items:center}
 dl{display:grid;grid-template-columns:1fr auto;gap:8px 16px;margin:0}
 dt{color:var(--mute)}
 dd{margin:0;text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
-@media (min-width:480px){dt,dd{white-space:nowrap}}
+dt,dd{white-space:nowrap}
+@media (max-width:480px){main{padding:18px 10px 36px}.panel{padding:14px 12px}dl{gap:6px 10px;font-size:.84rem}.hero .big{font-size:2.1rem}h1{font-size:1.4rem}}
+@media (max-width:350px){dl{font-size:.76rem}}
 .chart{overflow-x:auto;margin-top:20px}
 svg{display:block;width:100%;min-width:420px;height:auto}
 .note{font-size:.82rem;color:var(--mute);margin-top:14px}
@@ -104,8 +106,7 @@ var Pend=P0*Math.pow(a,M+R),remToday=s2*Pend/Math.pow(1+inf,T+L);
 $("heroNum").textContent=usd(w0);
 $("heroLbl").textContent="per month for "+L+" years, in today's dollars and rising with inflation. This uses the whole stack.";
 var status=run>=0?"Runs out after "+Math.floor(run/12)+" yr "+(run%12)+" mo":"Lasts all "+L+" years";
-var left=run>=0?"None":btc(s2)+" (about "+usd(remToday)+" today)";
-var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["First withdrawal (future $)",usd(w0*Math.pow(b,M))],["Max monthly withdrawal, forever",fw===null?"Not possible":usd(fw)+" today"],["Withdrawal tested",usd(tw)+"/mo"+(target>0?"":" (max)")],["Result",status],["Bitcoin left over",left]];
+var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["First withdrawal (future $)",usd(w0*Math.pow(b,M))],["Max withdrawal, forever",fw===null?"Not possible":usd(fw)+" today"],["Withdrawal tested",usd(tw)+"/mo"+(target>0?"":" (max)")],["Result",status],["Bitcoin left over",run>=0?"None":btc(s2)],["Left over (today's $)",usd(run>=0?0:remToday)]];
 $("out").innerHTML=rows.map(function(x){return"<dt>"+x[0]+"</dt><dd>"+x[1]+"</dd>"}).join("");
 var tot2=pts.length-1,W=640,H=240,pl=48,pb=28,pt=12,pr=10,mx=Math.max.apply(null,pts)||1;
 function X(k){return pl+(W-pl-pr)*k/tot2}function Y(y){return pt+(H-pt-pb)*(1-y/mx)}
