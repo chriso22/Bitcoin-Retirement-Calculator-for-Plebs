@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bitcoin Retirement Savings Calculator</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f1f4f6;--panel:#fff;--ink:#14202b;--mute:#5b6b78;--line:#d5dde3;--acc:#c96a00;--acc2:#1f5f8b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--panel:#182129;--ink:#e8eef2;--mute:#93a3af;--line:#2b3843;--acc:#f0a03c;--acc2:#6cb2e0}}
+:root[data-theme="dark"]{--bg:#10171d;--panel:#182129;--ink:#e8eef2;--mute:#93a3af;--line:#2b3843;--acc:#f0a03c;--acc2:#6cb2e0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 18px 48px}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 6px;font-weight:600}
+.sub{color:var(--mute);margin:0 0 24px;max-width:62ch}
+.grid{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+fieldset{border:0;margin:0 0 14px;padding:0}
+legend{font-weight:600;padding:0;margin-bottom:8px}
+label{display:block;font-size:.9rem;color:var(--mute);margin-bottom:10px}
+input[type=number]{display:block;width:100%;margin-top:3px;padding:8px 10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px}
+input:focus-visible{outline:2px solid var(--acc2);outline-offset:1px}
+label.chk{display:flex;gap:8px;align-items:center}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero{margin-bottom:16px}
+.hero .big{font-size:2.6rem;font-weight:600;color:var(--acc);line-height:1.1;font-variant-numeric:tabular-nums}
+.hero p{margin:4px 0 0;color:var(--mute)}
+dl{display:grid;grid-template-columns:1fr auto;gap:8px 16px;margin:0}
+dt{color:var(--mute)}
+dd{margin:0;text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
+.chart{overflow-x:auto;margin-top:20px}
+svg{display:block;width:100%;min-width:420px;height:auto}
+.note{font-size:.82rem;color:var(--mute);margin-top:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>Bitcoin retirement savings calculator</h1>
+<p class="sub">Start with the bitcoin you hold, buy a set amount each month until you retire, then see the monthly withdrawal that covers your retirement years and whether anything is left.</p>
+<div class="grid">
+<section class="panel" aria-label="Assumptions">
+<fieldset><legend>Building the stack</legend>
+<div class="row">
+<label>Bitcoin held today<input id="held" type="number" min="0" step="any" value="0.1"></label>
+<label>Price today ($)<input id="price" type="number" min="1" step="any" value="100000"></label>
+<label>Buy each month ($)<input id="buy" type="number" min="0" step="any" value="500"></label>
+<label>Years of buying<input id="years" type="number" min="1" max="60" step="1" value="15"></label>
+</div>
+<label class="chk"><input id="idx" type="checkbox"> Raise monthly buys with inflation</label>
+</fieldset>
+<fieldset><legend>Retirement</legend>
+<label>Years the money must last<input id="len" type="number" min="1" max="100" step="1" value="25"></label>
+<label>Monthly withdrawal to test, in today's dollars ($). Leave 0 to test the maximum.<input id="target" type="number" min="0" step="any" value="2000"></label>
+</fieldset>
+<fieldset><legend>Estimates</legend>
+<div class="row">
+<label>Bitcoin growth per year (%)<input id="cagr" type="number" step="any" value="20"></label>
+<label>Inflation per year (%)<input id="infl" type="number" step="any" value="3"></label>
+<label>Cost basis of what you hold ($)<input id="basis" type="number" min="0" step="any" value="50000"></label>
+<label>Tax on gains (%)<input id="tax" type="number" min="0" max="99" step="any" value="15"></label>
+</div>
+<label>Trading fee on buys and sells (%)<input id="fee" type="number" min="0" max="50" step="any" value="1"></label>
+</fieldset>
+</section>
+<section aria-live="polite">
+<div class="panel">
+<div class="hero"><div class="big" id="heroNum">–</div><p id="heroLbl"></p></div>
+<dl id="out"></dl>
+</div>
+<div class="panel chart"><strong>Your bitcoin over time</strong><div id="chart"></div></div>
+<p class="note">Constant-rate scenario math, not a forecast or advice. Bitcoin will not move in a straight line, so real results can differ a lot. Buys happen at the start of each month. Withdrawals are sold monthly, taxed only on the gain above your average cost basis, which blends what you hold with what you buy.</p>
+</section>
+</div>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var ids=["held","price","buy","years","idx","len","target","cagr","infl","basis","tax","fee"];
+function v(i){var n=parseFloat($(i).value);return isFinite(n)?n:0}
+function usd(n){return isFinite(n)?"$"+Math.round(n).toLocaleString("en-US"):"–"}
+function btc(n){return isFinite(n)?n.toLocaleString("en-US",{maximumFractionDigits:n<1?4:2})+" BTC":"–"}
+function calc(){
+var held=v("held"),P0=Math.max(v("price"),1),c=v("buy"),T=Math.max(Math.round(v("years")),1),L=Math.max(Math.round(v("len")),1),target=v("target");
+var g=v("cagr")/100,inf=v("infl")/100,basis=v("basis"),tax=v("tax")/100,fee=v("fee")/100,idx=$("idx").checked;
+var a=Math.pow(1+g,1/12),b=Math.pow(1+inf,1/12),M=T*12,R=L*12,j,m;
+var st=held,cost=held*basis,tot=0,pts=[st];
+for(j=0;j<M;j++){var cj=c*(idx?Math.pow(b,j):1);st+=cj*(1-fee)/(P0*Math.pow(a,j));cost+=cj;tot+=cj;pts.push(st)}
+var BT=st,bB=BT>0?cost/BT:0,PT=P0*Math.pow(a,M);
+function net(P){return P*(1-fee)-tax*Math.max(P-bB,0)}
+function unit(t){var n=net(P0*Math.pow(a,t));return n>0?Math.pow(b,t)/n:Infinity}
+var K=0;for(m=0;m<R;m++)K+=unit(M+m);
+var w0=BT>0&&isFinite(K)?BT/K:0;
+var N=1200,Ki=0;for(m=0;m<N;m++)Ki+=unit(M+m);
+var r=unit(M+N-1)/unit(M+N-2),fw=null;
+if(r<1&&isFinite(r)&&isFinite(Ki)){Ki+=unit(M+N-1)*r/(1-r);fw=BT>0?BT/Ki:0}
+var tw=target>0?target:w0,run=-1,s2=BT;
+for(m=0;m<R;m++){var sold=tw*unit(M+m);if(sold>s2||!isFinite(sold)){run=m;s2=0;break}s2-=sold;pts.push(s2)}
+if(run>=0){while(pts.length<M+R+1)pts.push(0)}
+var Pend=P0*Math.pow(a,M+R),remToday=s2*Pend/Math.pow(1+inf,T+L);
+$("heroNum").textContent=usd(w0);
+$("heroLbl").textContent="per month for "+L+" years, in today's dollars and rising with inflation. This uses the whole stack.";
+var res=run>=0?"Runs out after "+Math.floor(run/12)+" yr "+(run%12)+" mo":"Lasts all "+L+" years, with "+btc(s2)+" left (about "+usd(remToday)+" in today's dollars)";
+var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future dollars)",usd(BT*PT)],["Same amount in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total you buy over "+T+" years",usd(tot)],["Average cost basis at retirement",usd(bB)],["First withdrawal in future dollars",usd(w0*Math.pow(b,M))],["Most you could withdraw forever, per month (today's dollars)",fw===null?"Not possible at these estimates":usd(fw)],["Testing a withdrawal of",usd(tw)+" per month"+(target>0?"":" (the maximum)")],["Result",res]];
+$("out").innerHTML=rows.map(function(x){return"<dt>"+x[0]+"</dt><dd>"+x[1]+"</dd>"}).join("");
+var tot2=pts.length-1,W=640,H=240,pl=48,pb=28,pt=12,pr=10,mx=Math.max.apply(null,pts)||1;
+function X(k){return pl+(W-pl-pr)*k/tot2}function Y(y){return pt+(H-pt-pb)*(1-y/mx)}
+var d=pts.map(function(y,k){return(k?"L":"M")+X(k).toFixed(1)+" "+Y(y).toFixed(1)}).join("");
+var rx=X(M);
+$("chart").innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Bitcoin held by month: grows until retirement, then draws down"><line x1="'+pl+'" y1="'+(H-pb)+'" x2="'+(W-pr)+'" y2="'+(H-pb)+'" stroke="var(--line)"/><line x1="'+pl+'" y1="'+pt+'" x2="'+pl+'" y2="'+(H-pb)+'" stroke="var(--line)"/><line x1="'+rx+'" y1="'+pt+'" x2="'+rx+'" y2="'+(H-pb)+'" stroke="var(--mute)" stroke-dasharray="4 4"/><path d="'+d+'" fill="none" stroke="var(--acc)" stroke-width="2.5"/><text x="'+(pl-6)+'" y="'+(pt+10)+'" text-anchor="end" font-size="11" fill="var(--mute)">'+mx.toFixed(mx<10?2:0)+'</text><text x="'+(pl-6)+'" y="'+(H-pb)+'" text-anchor="end" font-size="11" fill="var(--mute)">0</text><text x="'+pl+'" y="'+(H-8)+'" font-size="11" fill="var(--mute)">Today</text><text x="'+rx+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="var(--mute)">Retire (year '+T+')</text><text x="'+(W-pr)+'" y="'+(H-8)+'" text-anchor="end" font-size="11" fill="var(--mute)">Year '+(T+L)+'</text></svg>'}
+ids.forEach(function(i){$(i).addEventListener("input",calc);$(i).addEventListener("change",calc)});
+calc();
+})();
+</script>
+</body>
+</html>
