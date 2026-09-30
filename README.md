@@ -2,7 +2,7 @@
 
 How much bitcoin do you need to retire on, and what can you withdraw each month? Enter the bitcoin you hold today, a monthly dollar amount you will buy until you retire, and how many years the money has to last. The calculator shows the monthly withdrawal that covers those years and whether any bitcoin is left over.
 
-**Live:** add your GitHub Pages link here once it is published.
+**Live:** https://bitcoin-retirement-calculator-for-plebs.pages.dev
 
 ## What it models
 
