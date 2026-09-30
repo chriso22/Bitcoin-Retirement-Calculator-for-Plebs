@@ -23,6 +23,9 @@ legend{font-weight:600;padding:0;margin-bottom:8px}
 label{display:block;font-size:.9rem;color:var(--mute);margin-bottom:10px}
 input[type=number],select{display:block;width:100%;margin-top:3px;padding:8px 10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px}
 input:focus-visible,select:focus-visible{outline:2px solid var(--acc2);outline-offset:1px}
+.live-price-btn{display:block;margin:5px auto 0;padding:0;border:0;background:none;color:var(--acc2);font:inherit;font-size:.82rem;cursor:pointer;text-align:center}
+.live-price-btn:hover{text-decoration:underline}
+.live-price-btn:disabled{opacity:.6;cursor:default}
 label.chk{display:flex;gap:8px;align-items:center}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hero{margin-bottom:16px}
@@ -49,7 +52,10 @@ svg{display:block;width:100%;min-width:420px;height:auto}
 <label>How often you buy and withdraw<select id="freq"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option></select></label>
 <div class="row">
 <label>Bitcoin held today<input id="held" type="number" min="0" step="any" value="0.1"></label>
-<label>Price today ($)<input id="price" type="number" min="1" step="any" value="100000"></label>
+<label>Price today ($)
+<input id="price" type="number" min="1" step="any" value="100000">
+<button id="fetchPrice" class="live-price-btn" type="button">Use live price</button>
+</label>
 <label><span id="lblBuy">Buy each month ($)</span><input id="buy" type="number" min="0" step="any" value="500"></label>
 <label>Years of buying<input id="years" type="number" min="1" max="60" step="1" value="15"></label>
 </div>
@@ -122,6 +128,37 @@ var mo={buy:v("buy"),target:v("target")},cur=12;
 ["buy","target"].forEach(function(i){$(i).addEventListener("input",function(){mo[i]=v(i)*cur/12})});
 $("freq").addEventListener("change",function(){cur=per();["buy","target"].forEach(function(i){$(i).value=Math.round(mo[i]*12/cur*100)/100})});
 ids.forEach(function(i){$(i).addEventListener("input",calc);$(i).addEventListener("change",calc)});
+
+async function fetchLivePrice(){
+var button=$("fetchPrice");
+button.disabled=true;
+button.textContent="Fetching...";
+try{
+var price;
+try{
+var r=await fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot");
+if(!r.ok)throw new Error("Coinbase failed");
+var d=await r.json();
+price=Number(d.data.amount);
+}catch(e){
+var r2=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+if(!r2.ok)throw new Error("CoinGecko failed");
+var d2=await r2.json();
+price=Number(d2.bitcoin.usd);
+}
+if(!isFinite(price)||price<=0)throw new Error("Invalid price");
+$("price").value=Math.round(price);
+calc();
+}catch(e){
+alert("Could not fetch the live Bitcoin price. Please enter it manually.");
+}finally{
+button.disabled=false;
+button.textContent="Use live price";
+}
+}
+
+$("fetchPrice").addEventListener("click",fetchLivePrice);
+
 calc();
 })();
 </script>
