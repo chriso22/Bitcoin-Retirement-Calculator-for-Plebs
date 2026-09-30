@@ -2,7 +2,7 @@
 
 How much bitcoin do you need to retire on, and what can you withdraw each month? Enter the bitcoin you hold today, a monthly dollar amount you will buy until you retire, and how many years the money has to last. The calculator shows the monthly withdrawal that covers those years and whether any bitcoin is left over.
 
-**Live:** https://bitcoin-retirement-calculator-for-plebs.pages.dev
+**Live:** add your GitHub Pages link here once it is published.
 
 ## What it models
 
@@ -14,21 +14,25 @@ Everything runs in steps of your choosing: daily, weekly or monthly (monthly is 
 
 ### Inputs
 
-| Input | Meaning |
-| --- | --- |
-| Bitcoin held today | The stack you start with |
-| Price today | Typed in by hand (the page makes no network requests) |
-| How often you buy and withdraw | Daily, weekly or monthly. Changing it converts your buy and withdrawal amounts to the new schedule |
-| Buy each day / week / month | Dollars spent on bitcoin each step until you retire |
-| Years of buying | How long until you retire |
-| Raise buys with inflation | Optional. Grows the buy amount by the inflation rate |
-| Years the money must last | Length of retirement |
-| Withdrawal to test (per day, week or month) | In today's dollars. Leave at 0 to test the maximum |
-| Bitcoin growth per year | Projected annual growth. Negative values are allowed |
-| Inflation per year | Applied to withdrawals (and to buys, if the option is on) |
-| Cost basis of what you hold | Average price you paid for your existing bitcoin |
-| Tax on gains | Applied to the gain above your cost basis |
-| Trading fee | Percentage of each buy and each sale |
+| Input                                       | Meaning                                                                                            |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Bitcoin held today                          | The stack you start with                                                                           |
+| Price today                                 | Type it in by hand, or click **Use live price** to fetch the current price (see below)             |
+| How often you buy and withdraw              | Daily, weekly or monthly. Changing it converts your buy and withdrawal amounts to the new schedule |
+| Buy each day / week / month                 | Dollars spent on bitcoin each step until you retire                                                |
+| Years of buying                             | How long until you retire                                                                          |
+| Raise buys with inflation                   | Optional. Grows the buy amount by the inflation rate                                               |
+| Years the money must last                   | Length of retirement                                                                               |
+| Withdrawal to test (per day, week or month) | In today's dollars. Leave at 0 to test the maximum                                                 |
+| Bitcoin growth per year                     | Projected annual growth. Negative values are allowed                                               |
+| Inflation per year                          | Applied to withdrawals (and to buys, if the option is on)                                          |
+| Cost basis of what you hold                 | Average price you paid for your existing bitcoin                                                   |
+| Tax on gains                                | Applied to the gain above your cost basis                                                          |
+| Trading fee                                 | Percentage of each buy and each sale                                                               |
+
+### Live price
+
+The **Use live price** button under the price field fetches the current BTC/USD price from Coinbase. If Coinbase fails, it falls back to CoinGecko. The results recalculate as soon as the price comes back. If both lookups fail, the page tells you and keeps the price you had, so you can always type one in by hand.
 
 ### Outputs
 
@@ -51,6 +55,10 @@ It assumes bitcoin grows at a constant rate. Real prices swing widely, so a proj
 
 There is nothing to install or build. Open `index.html` in a browser.
 
+## Privacy
+
+All calculations happen in your browser, and nothing you enter is sent anywhere. The page makes two kinds of network requests: it loads the IBM Plex Sans web font from Google Fonts, and it contacts Coinbase (or CoinGecko as a backup) only when you click **Use live price**. Those price requests carry no information from your inputs.
+
 ## Publish with GitHub Pages
 
 1. Push `index.html` and `README.md` to a GitHub repository.
@@ -61,6 +69,8 @@ There is nothing to install or build. Open `index.html` in a browser.
 ## Credits
 
 Inspired by the [Bitcoin Retirement Calculator](https://github.com/bevstr/bitcoin-retirement-calculator), which works out how long a bitcoin stack lasts when you spend it down. This project runs a similar idea from the savings side, and its code is written separately.
+
+The live price button was contributed by [@bevstr](https://github.com/bevstr) in pull request #1.
 
 ## License
 
