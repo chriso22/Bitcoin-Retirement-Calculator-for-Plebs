@@ -1,30 +1,32 @@
 {
-  "generatedAt": "2026-10-02T21:48:42+00:00",
+  "generatedAt": "2026-10-02T21:52:29+00:00",
   "title": "Daily Investment Brief",
   "watchlist": [
     "BTC",
     "MSTR",
     "ASST",
     "XXI",
-    "MRLN",
+    "SPCX",
     "ASTS",
-    "SPCX"
+    "MRLN"
   ],
   "assets": [
     {
       "id": "BTC",
+      "group": "bitcoin",
       "kind": "crypto",
       "symbol": "BTC-USD",
       "name": "Bitcoin",
-      "blurb": "Digital reserve asset; the core of this portfolio lens.",
-      "price": 84513.785,
+      "blurb": "Digital reserve asset.",
+      "price": 84514.745,
       "prevClose": 77300.48,
-      "changePct": 9.331513853471554,
+      "changePct": 9.332755760378202,
       "currency": "USD",
       "exchange": "CCC",
       "high52w": 126198.07,
       "low52w": 57747.766,
       "volume": null,
+      "rangePos": 39.104251458108926,
       "spark": [
         81271.7421875,
         79671.96875,
@@ -55,7 +57,7 @@
         83622.4296875,
         83553.8515625,
         84853.1015625,
-        84507.0
+        84515.703125
       ],
       "news": [
         {
@@ -75,6 +77,12 @@
           "publisher": "Barrons.com",
           "link": "https://finance.yahoo.com/m/422a682c-20b8-3056-aa0e-22a39a091eac/the-next-crypto-boom-is.html",
           "published": 1790919000
+        },
+        {
+          "title": "Bitcoin ETF Win Streak Comes To An End",
+          "publisher": "CryptoProwl",
+          "link": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-etf-win-streak-comes-161000864.html",
+          "published": 1790871000
         }
       ],
       "status": "ok",
@@ -83,10 +91,11 @@
     },
     {
       "id": "MSTR",
+      "group": "bitcoin-stocks",
       "kind": "stock",
       "symbol": "MSTR",
       "name": "Strategy Inc",
-      "blurb": "Largest public Bitcoin treasury company.",
+      "blurb": "Largest public Bitcoin treasury.",
       "price": 160.01,
       "prevClose": 123.19,
       "changePct": -0.305,
@@ -95,6 +104,7 @@
       "high52w": 365.21,
       "low52w": 81.81,
       "volume": 27192681,
+      "rangePos": 27.593507410021168,
       "spark": [
         144.82000732421875,
         142.8000030517578,
@@ -125,10 +135,11 @@
     },
     {
       "id": "ASST",
+      "group": "bitcoin-stocks",
       "kind": "stock",
       "symbol": "ASST",
       "name": "Strive, Inc.",
-      "blurb": "Asset-management Bitcoin treasury (Nasdaq: ASST).",
+      "blurb": "Asset-management Bitcoin treasury.",
       "price": 30.03,
       "prevClose": 24.32,
       "changePct": -0.266,
@@ -137,6 +148,7 @@
       "high52w": 54.8,
       "low52w": 7.02,
       "volume": 11308889,
+      "rangePos": 48.158225198827964,
       "spark": [
         26.81999969482422,
         27.139999389648438,
@@ -167,10 +179,11 @@
     },
     {
       "id": "XXI",
+      "group": "bitcoin-stocks",
       "kind": "stock",
       "symbol": "XXI",
       "name": "Twenty One Capital, Inc.",
-      "blurb": "Pure-play Bitcoin treasury company.",
+      "blurb": "Pure-play Bitcoin treasury.",
       "price": 6.6,
       "prevClose": 5.74,
       "changePct": -2.222,
@@ -179,6 +192,7 @@
       "high52w": 25.627,
       "low52w": 4.15,
       "volume": 1785954,
+      "rangePos": 11.407552265213948,
       "spark": [
         6.400000095367432,
         6.099999904632568,
@@ -208,41 +222,43 @@
       "source": "yahoo"
     },
     {
-      "id": "MRLN",
+      "id": "SPCX",
+      "group": "space-defense",
       "kind": "stock",
-      "symbol": "MRLN",
-      "name": "Merlin, Inc.",
-      "blurb": "Aerospace & defense autonomous-flight software.",
-      "price": 1.71,
-      "prevClose": 2.85,
-      "changePct": -5.525,
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies",
+      "blurb": "Launch, Starlink, and orbital infrastructure.",
+      "price": 158.96,
+      "prevClose": 140.71,
+      "changePct": 7.355,
       "currency": "USD",
-      "exchange": "NasdaqGM",
-      "high52w": 17.0,
-      "low52w": 1.7,
-      "volume": 2434708,
+      "exchange": "NasdaqGS",
+      "high52w": 225.64,
+      "low52w": 104.83,
+      "volume": 119274773,
+      "rangePos": 44.8058935518583,
       "spark": [
-        3.359999895095825,
-        3.3499999046325684,
-        3.390000104904175,
-        3.140000104904175,
-        3.0199999809265137,
-        2.9800000190734863,
-        3.0399999618530273,
-        3.049999952316284,
-        2.2100000381469727,
-        2.059999942779541,
-        1.9500000476837158,
-        1.8600000143051147,
-        1.9199999570846558,
-        1.7699999809265137,
-        1.7799999713897705,
-        1.9900000095367432,
-        1.75,
-        1.7799999713897705,
-        1.8799999952316284,
-        1.809999942779541,
-        1.7100000381469727
+        149.74000549316406,
+        147.9499969482422,
+        153.47000122070312,
+        147.5500030517578,
+        148.17999267578125,
+        151.2100067138672,
+        148.14999389648438,
+        143.49000549316406,
+        150.8800048828125,
+        154.80999755859375,
+        152.7100067138672,
+        151.85000610351562,
+        154.72000122070312,
+        148.36000061035156,
+        148.02999877929688,
+        148.67999267578125,
+        145.47000122070312,
+        149.24000549316406,
+        150.86000061035156,
+        148.07000732421875,
+        158.9600067138672
       ],
       "news": [],
       "status": "ok",
@@ -251,10 +267,11 @@
     },
     {
       "id": "ASTS",
+      "group": "space-defense",
       "kind": "stock",
       "symbol": "ASTS",
       "name": "AST SpaceMobile, Inc.",
-      "blurb": "Space-based cellular broadband (Nasdaq: ASTS).",
+      "blurb": "Space-based cellular broadband.",
       "price": 58.45,
       "prevClose": 62.4,
       "changePct": 2.472,
@@ -263,6 +280,7 @@
       "high52w": 133.86,
       "low52w": 49.31,
       "volume": 14939524,
+      "rangePos": 10.81017149615612,
       "spark": [
         62.130001068115234,
         62.310001373291016,
@@ -292,41 +310,43 @@
       "source": "yahoo"
     },
     {
-      "id": "SPCX",
+      "id": "MRLN",
+      "group": "space-defense",
       "kind": "stock",
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies",
-      "blurb": "Space Exploration Technologies Corp. (Nasdaq: SPCX).",
-      "price": 158.96,
-      "prevClose": 140.71,
-      "changePct": 7.355,
+      "symbol": "MRLN",
+      "name": "Merlin, Inc.",
+      "blurb": "Autonomous flight software for aerospace & defense.",
+      "price": 1.71,
+      "prevClose": 2.85,
+      "changePct": -5.525,
       "currency": "USD",
-      "exchange": "NasdaqGS",
-      "high52w": 225.64,
-      "low52w": 104.83,
-      "volume": 119274773,
+      "exchange": "NasdaqGM",
+      "high52w": 17.0,
+      "low52w": 1.7,
+      "volume": 2434708,
+      "rangePos": 0.06535947712418305,
       "spark": [
-        149.74000549316406,
-        147.9499969482422,
-        153.47000122070312,
-        147.5500030517578,
-        148.17999267578125,
-        151.2100067138672,
-        148.14999389648438,
-        143.49000549316406,
-        150.8800048828125,
-        154.80999755859375,
-        152.7100067138672,
-        151.85000610351562,
-        154.72000122070312,
-        148.36000061035156,
-        148.02999877929688,
-        148.67999267578125,
-        145.47000122070312,
-        149.24000549316406,
-        150.86000061035156,
-        148.07000732421875,
-        158.9600067138672
+        3.359999895095825,
+        3.3499999046325684,
+        3.390000104904175,
+        3.140000104904175,
+        3.0199999809265137,
+        2.9800000190734863,
+        3.0399999618530273,
+        3.049999952316284,
+        2.2100000381469727,
+        2.059999942779541,
+        1.9500000476837158,
+        1.8600000143051147,
+        1.9199999570846558,
+        1.7699999809265137,
+        1.7799999713897705,
+        1.9900000095367432,
+        1.75,
+        1.7799999713897705,
+        1.8799999952316284,
+        1.809999942779541,
+        1.7100000381469727
       ],
       "news": [],
       "status": "ok",
@@ -334,10 +354,126 @@
       "source": "yahoo"
     }
   ],
+  "sections": [
+    {
+      "id": "bitcoin",
+      "title": "Bitcoin",
+      "summary": "Spot bitcoin \u2014 the core of this brief.",
+      "assetIds": [
+        "BTC"
+      ],
+      "analysis": [
+        "Spot is up +9.33% versus the prior close.",
+        "Trading mid-range on a 52-week basis (39th percentile).",
+        "52-week band: $57,748 \u2013 $126,198."
+      ],
+      "news": [
+        {
+          "title": "BC-Most Active Stocks",
+          "publisher": "Associated Press",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/bc-most-active-stocks-143018811.html",
+          "published": 1790951418
+        },
+        {
+          "title": "Micron, Crypto and Jobs: The Bull Market Just Got 3 New Catalysts",
+          "publisher": "Zacks",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/micron-crypto-jobs-bull-market-141100322.html",
+          "published": 1790950260
+        },
+        {
+          "title": "The Next Crypto Boom Is Already Here",
+          "publisher": "Barrons.com",
+          "link": "https://finance.yahoo.com/m/422a682c-20b8-3056-aa0e-22a39a091eac/the-next-crypto-boom-is.html",
+          "published": 1790919000
+        },
+        {
+          "title": "Bitcoin ETF Win Streak Comes To An End",
+          "publisher": "CryptoProwl",
+          "link": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-etf-win-streak-comes-161000864.html",
+          "published": 1790871000
+        }
+      ]
+    },
+    {
+      "id": "bitcoin-stocks",
+      "title": "Bitcoin-linked equities",
+      "summary": "Public companies whose equity often moves with bitcoin exposure.",
+      "assetIds": [
+        "MSTR",
+        "ASST",
+        "XXI"
+      ],
+      "analysis": [
+        "Group average -0.93%; leader ASST -0.27%, laggard XXI -2.22%.",
+        "Treasury names are lagging spot bitcoin today."
+      ],
+      "news": [
+        {
+          "title": "Strategy Stock is Riding Bitcoin\u2019s Climb",
+          "publisher": "Investopedia",
+          "link": "https://finance.yahoo.com/markets/crypto/articles/strategy-stock-riding-bitcoin-climb-162730550.html",
+          "published": 1790958450
+        },
+        {
+          "title": "Strategy Is Up 30% in a Month and Citigroup Just Doubled Its Price Target to $240. Is It Time to Buy MSTR Stock Now?",
+          "publisher": "24/7 Wall St.",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/strategy-30-month-citigroup-just-155914578.html",
+          "published": 1790956754
+        },
+        {
+          "title": "A Father Told Michael Saylor His $219,000 MicroStrategy Investment For His Three Kids Had Fallen To $60,000. Saylor Said Shareholders Should Be Ready To \u201cRide Through\u201d A Year Or Two Of Pain. MSTR Is Up 35.67% In The Past Month.",
+          "publisher": "24/7 Wall St.",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/father-told-michael-saylor-219-142407315.html",
+          "published": 1790951047
+        },
+        {
+          "title": "Stocks to Watch: Nike, Tesla, Volvo Car",
+          "publisher": "The Wall Street Journal",
+          "link": "https://finance.yahoo.com/m/35ee22be-c916-323d-b633-a90eb633dcdc/stocks-to-watch%3A-nike%2C-tesla%2C.html",
+          "published": 1790950720
+        }
+      ]
+    },
+    {
+      "id": "space-defense",
+      "title": "Space & defense",
+      "summary": "Launch, satellite broadband, and autonomous flight names.",
+      "assetIds": [
+        "SPCX",
+        "ASTS",
+        "MRLN"
+      ],
+      "analysis": [
+        "Group average +1.43%; leader SPCX +7.36%, laggard MRLN -5.53%.",
+        "SPCX is the session\u2019s standout in space/defense; MRLN is the softest print."
+      ],
+      "news": [
+        {
+          "title": "SpaceX Stock Jumps 7% After 3 Launches in 13 Hours, Including Google's Orbital AI Experiment",
+          "publisher": "Benzinga Prediction Markets",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/spacex-stock-jumps-7-3-210011551.html",
+          "published": 1790974811
+        },
+        {
+          "title": "Here's How SpaceX Saved $120 Million With (and Without) a Really Big Fishnet",
+          "publisher": "Motley Fool",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/heres-spacex-saved-120-million-205000117.html",
+          "published": 1790974200
+        },
+        {
+          "title": "Musk, Huang Forecast AI-Powered GDP Gains; ARK Buys More Rocket Lab",
+          "publisher": "Investor's Business Daily",
+          "link": "https://finance.yahoo.com/m/eab3c662-db24-3fe6-851e-852bfb85f8ea/musk%2C-huang-forecast.html",
+          "published": 1790973674
+        }
+      ]
+    }
+  ],
   "highlights": [
     "BTC +9.33%",
     "SPCX +7.36%",
-    "MRLN -5.53%"
+    "MRLN -5.53%",
+    "ASTS +2.47%"
   ],
   "disclaimer": "Snapshot for personal monitoring only \u2014 not financial advice. Prices may be delayed; verify with your broker before trading."
 }

@@ -6,7 +6,13 @@ How much bitcoin do you need to retire on, and what can you withdraw each month?
 
 ## Daily investment brief
 
-Open [`brief.html`](brief.html) for a personal daily watchlist snapshot covering **Bitcoin**, **MSTR** (Strategy), **ASST** (Strive), **XXI** (Twenty One Capital), **MRLN** (Merlin), **ASTS** (AST SpaceMobile), and **SpaceX** (**SPCX**). Each card shows price, day change, a short sparkline, 52-week range, and a few recent headlines.
+Open [`brief.html`](brief.html) for a personal daily watchlist snapshot. Layout is mobile-first and grouped:
+
+1. **Bitcoin** — spot price, range context, analysis, headlines
+2. **Bitcoin-linked equities** — MSTR, ASST, XXI
+3. **Space & defense** — SPCX (SpaceX), ASTS, MRLN
+
+Each group includes concise analysis plus shared news. Row quotes keep the stock lists easy to scan on a phone.
 
 Refresh the snapshot locally with:
 
