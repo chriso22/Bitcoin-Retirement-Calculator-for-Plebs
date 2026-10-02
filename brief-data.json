@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T21:40:42+00:00",
+  "generatedAt": "2026-10-02T21:48:26+00:00",
   "title": "Daily Investment Brief",
   "watchlist": [
     "BTC",
@@ -7,7 +7,7 @@
     "ASST",
     "XXI",
     "MRLN",
-    "ASAT",
+    "ASTS",
     "SPCX"
   ],
   "assets": [
@@ -17,9 +17,9 @@
       "symbol": "BTC-USD",
       "name": "Bitcoin",
       "blurb": "Digital reserve asset; the core of this portfolio lens.",
-      "price": 84512.16,
+      "price": 84522.635,
       "prevClose": 77300.48,
-      "changePct": 9.329411667301429,
+      "changePct": 9.342962682767299,
       "currency": "USD",
       "exchange": "CCC",
       "high52w": 126198.07,
@@ -55,7 +55,7 @@
         83622.4296875,
         83553.8515625,
         84853.1015625,
-        84512.59375
+        84513.78125
       ],
       "news": [
         {
@@ -250,27 +250,46 @@
       "source": "yahoo"
     },
     {
-      "id": "ASAT",
+      "id": "ASTS",
       "kind": "stock",
-      "symbol": "ASAT",
-      "name": "ASAT",
-      "blurb": "Watchlist ticker. No active Yahoo quote found; may be delisted or mistyped (Strive preferred is SATA).",
-      "price": null,
-      "prevClose": null,
-      "changePct": null,
+      "symbol": "ASTS",
+      "name": "AST SpaceMobile, Inc.",
+      "blurb": "Space-based cellular broadband (Nasdaq: ASTS).",
+      "price": 58.45,
+      "prevClose": 62.4,
+      "changePct": 2.472,
       "currency": "USD",
-      "exchange": null,
-      "high52w": null,
-      "low52w": null,
-      "volume": null,
-      "spark": [],
+      "exchange": "NasdaqGS",
+      "high52w": 133.86,
+      "low52w": 49.31,
+      "volume": 14939524,
+      "spark": [
+        62.130001068115234,
+        62.310001373291016,
+        66.12000274658203,
+        62.41999816894531,
+        59.90999984741211,
+        59.86000061035156,
+        60.0,
+        58.77000045776367,
+        59.27000045776367,
+        62.709999084472656,
+        58.52000045776367,
+        61.88999938964844,
+        63.689998626708984,
+        59.97999954223633,
+        61.060001373291016,
+        61.810001373291016,
+        61.0,
+        59.400001525878906,
+        58.86000061035156,
+        57.040000915527344,
+        58.45000076293945
+      ],
       "news": [],
-      "status": "unavailable",
-      "note": "No quote for ASAT. Nearby listing SATA (Strive, Inc. - Variable Rate Se) last traded at 100.01.",
-      "source": null,
-      "altSymbol": "SATA",
-      "altPrice": 100.01,
-      "altName": "Strive, Inc. - Variable Rate Se"
+      "status": "ok",
+      "note": null,
+      "source": "yahoo"
     },
     {
       "id": "SPCX",
@@ -316,7 +335,7 @@
     }
   ],
   "highlights": [
-    "BTC +9.33%",
+    "BTC +9.34%",
     "SPCX +7.36%",
     "MRLN -5.53%"
   ],

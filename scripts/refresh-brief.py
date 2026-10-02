@@ -68,14 +68,13 @@ WATCHLIST = [
         "news_q": "Merlin MRLN autonomous flight",
     },
     {
-        "id": "ASAT",
+        "id": "ASTS",
         "kind": "stock",
-        "symbol": "ASAT",
-        "name": "ASAT",
-        "blurb": "Watchlist ticker. No active Yahoo quote found; may be delisted or mistyped (Strive preferred is SATA).",
-        "yahoo": "ASAT",
-        "news_q": "ASAT stock",
-        "optional_alt": "SATA",
+        "symbol": "ASTS",
+        "name": "AST SpaceMobile",
+        "blurb": "Space-based cellular broadband (Nasdaq: ASTS).",
+        "yahoo": "ASTS",
+        "news_q": "ASTS AST SpaceMobile",
     },
     {
         "id": "SPCX",
@@ -304,7 +303,7 @@ def main() -> None:
     payload = {
         "generatedAt": generated_at,
         "title": "Daily Investment Brief",
-        "watchlist": ["BTC", "MSTR", "ASST", "XXI", "MRLN", "ASAT", "SPCX"],
+        "watchlist": ["BTC", "MSTR", "ASST", "XXI", "MRLN", "ASTS", "SPCX"],
         "assets": assets,
         "highlights": movers_summary(assets),
         "disclaimer": (
