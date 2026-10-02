@@ -1,0 +1,36 @@
+name: Daily investment brief
+
+on:
+  schedule:
+    # Weekday mornings ~13:00 UTC (around US market open)
+    - cron: "0 13 * * 1-5"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/refresh-brief.py"
+      - ".github/workflows/daily-brief.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Refresh brief data
+        run: python3 scripts/refresh-brief.py
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- brief-data.json; then
+            echo "No brief-data.json changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add brief-data.json
+          git commit -m "chore: refresh daily investment brief"
+          git push

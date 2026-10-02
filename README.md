@@ -4,6 +4,18 @@ How much bitcoin do you need to retire on, and what can you withdraw each month?
 
 **Live:** add your GitHub Pages link here once it is published.
 
+## Daily investment brief
+
+Open [`brief.html`](brief.html) for a personal daily watchlist snapshot covering **Bitcoin**, **MSTR** (Strategy), **ASST** (Strive), **XXI** (Twenty One Capital), **MRLN** (Merlin), **ASAT** (if quoted), and **SpaceX** (**SPCX**). Each card shows price, day change, a short sparkline, 52-week range, and a few recent headlines.
+
+Refresh the snapshot locally with:
+
+```bash
+python3 scripts/refresh-brief.py
+```
+
+That writes `brief-data.json`. A GitHub Action (`.github/workflows/daily-brief.yml`) can run the same script on weekdays and commit updates. On the brief page, **Refresh Bitcoin price** still fetches a live BTC/USD quote from Coinbase (CoinGecko fallback), matching the calculator.
+
 ## What it models
 
 Everything runs in steps of your choosing: daily, weekly or monthly (monthly is the default).
@@ -57,7 +69,7 @@ There is nothing to install or build. Open `index.html` in a browser.
 
 ## Privacy
 
-All calculations happen in your browser, and nothing you enter is sent anywhere. The page makes two kinds of network requests: it loads the IBM Plex Sans web font from Google Fonts, and it contacts Coinbase (or CoinGecko as a backup) only when you click **Use live price**. Those price requests carry no information from your inputs.
+All calculations happen in your browser, and nothing you enter is sent anywhere. The calculator makes two kinds of network requests: it loads the IBM Plex Sans web font from Google Fonts, and it contacts Coinbase (or CoinGecko as a backup) only when you click **Use live price**. The daily brief loads `brief-data.json` from the same site and can refresh Bitcoin the same way. Those price requests carry no information from your inputs.
 
 ## Publish with GitHub Pages
 
