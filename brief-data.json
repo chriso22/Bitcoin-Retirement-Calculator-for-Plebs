@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T21:52:29+00:00",
+  "generatedAt": "2026-10-02T21:52:40+00:00",
   "title": "Daily Investment Brief",
   "watchlist": [
     "BTC",
@@ -18,15 +18,15 @@
       "symbol": "BTC-USD",
       "name": "Bitcoin",
       "blurb": "Digital reserve asset.",
-      "price": 84514.745,
+      "price": 84517.16,
       "prevClose": 77300.48,
-      "changePct": 9.332755760378202,
+      "changePct": 9.335879932440275,
       "currency": "USD",
       "exchange": "CCC",
       "high52w": 126198.07,
       "low52w": 57747.766,
       "volume": null,
-      "rangePos": 39.104251458108926,
+      "rangePos": 39.10777956515722,
       "spark": [
         81271.7421875,
         79671.96875,
@@ -57,7 +57,7 @@
         83622.4296875,
         83553.8515625,
         84853.1015625,
-        84515.703125
+        84520.15625
       ],
       "news": [
         {
@@ -363,7 +363,7 @@
         "BTC"
       ],
       "analysis": [
-        "Spot is up +9.33% versus the prior close.",
+        "Spot is up +9.34% versus the prior close.",
         "Trading mid-range on a 52-week basis (39th percentile).",
         "52-week band: $57,748 \u2013 $126,198."
       ],
@@ -470,7 +470,7 @@
     }
   ],
   "highlights": [
-    "BTC +9.33%",
+    "BTC +9.34%",
     "SPCX +7.36%",
     "MRLN -5.53%",
     "ASTS +2.47%"
