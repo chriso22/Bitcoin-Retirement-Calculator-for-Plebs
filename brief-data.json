@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T21:48:26+00:00",
+  "generatedAt": "2026-10-02T21:48:42+00:00",
   "title": "Daily Investment Brief",
   "watchlist": [
     "BTC",
@@ -17,9 +17,9 @@
       "symbol": "BTC-USD",
       "name": "Bitcoin",
       "blurb": "Digital reserve asset; the core of this portfolio lens.",
-      "price": 84522.635,
+      "price": 84513.785,
       "prevClose": 77300.48,
-      "changePct": 9.342962682767299,
+      "changePct": 9.331513853471554,
       "currency": "USD",
       "exchange": "CCC",
       "high52w": 126198.07,
@@ -55,7 +55,7 @@
         83622.4296875,
         83553.8515625,
         84853.1015625,
-        84513.78125
+        84507.0
       ],
       "news": [
         {
@@ -335,7 +335,7 @@
     }
   ],
   "highlights": [
-    "BTC +9.34%",
+    "BTC +9.33%",
     "SPCX +7.36%",
     "MRLN -5.53%"
   ],
