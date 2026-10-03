@@ -104,14 +104,15 @@ var fr=$("freq").value,ppy=fr==="daily"?365:fr==="weekly"?52:12,un=fr==="daily"?
 var a=Math.pow(1+g,1/ppy),b=Math.pow(1+inf,1/ppy),M=T*ppy,R=L*ppy,j,m;
 var warns=[];
 if(gRaw<=-1||infRaw<=-1)warns.push("Growth and inflation must stay above −100%. Values at or below that were capped so the math can run.");
-if(1-fee-tax<=0)warns.push("Tax plus trading fees leave no sale proceeds (or less than none). Lower tax and/or fees to get a usable withdrawal figure.");
+if(v("tax")>99||v("fee")>50)warns.push("Tax is capped at 99% and trading fees at 50% for this calculator.");
+if((1-fee)*(1-tax)<=0)warns.push("A 100% tax or 100% trading fee leaves no sale proceeds. Lower tax and/or fees to get a usable withdrawal figure.");
 $("lblBuy").textContent="Buy each "+un+" ($)";$("lblTgt").textContent="Withdrawal to test per "+un+", in today's dollars ($). Leave 0 to test the maximum.";
 var st=held,cost=held*basis,tot=0,pts=[st];
 for(j=0;j<M;j++){var cj=c*(idx?Math.pow(b,j):1);var px=P0*Math.pow(a,j);st+=px>0?cj*(1-fee)/px:0;cost+=cj;tot+=cj;pts.push(st)}
 var BT=st,bB=BT>0?cost/BT:0,PT=P0*Math.pow(a,M);
 function net(P){var proceeds=P*(1-fee);return proceeds-tax*Math.max(proceeds-bB,0)}
 function unit(t){var n=net(P0*Math.pow(a,t));return n>0?Math.pow(b,t)/n:Infinity}
-var deadSale=1-fee-tax<=0;
+var deadSale=(1-fee)*(1-tax)<=0;
 var K=0;for(m=0;m<R;m++)K+=unit(M+m);
 var w0=!deadSale&&BT>0&&isFinite(K)&&K>0?BT/K:0;
 var N=100*ppy,Ki=0;for(m=0;m<N;m++)Ki+=unit(M+m);

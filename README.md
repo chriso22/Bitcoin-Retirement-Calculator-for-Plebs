@@ -10,7 +10,7 @@ Everything runs in steps of your choosing: daily, weekly or monthly (monthly is 
 
 1. **Building the stack.** Each step until retirement you buy bitcoin with your buy amount at that step's price, minus the trading fee. The price compounds by one step of your projected growth rate. You can raise the buys with inflation.
 2. **Retirement.** Each step you sell enough bitcoin to cover that step's withdrawal. You enter the withdrawal in today's dollars. The calculator inflates it to the year you retire, uses that larger figure as your first withdrawal, and keeps raising it with inflation so it holds its purchasing power.
-3. **Tax and fees.** After the trading fee, tax applies only to the gain above your average cost basis, not to the whole sale. The cost basis blends what you already hold with what you buy along the way. The trading fee applies to both buys and sells. If tax plus fees would leave no sale proceeds, the calculator warns you instead of inventing a withdrawal figure.
+3. **Tax and fees.** After the trading fee, tax applies only to the gain above your average cost basis, not to the whole sale. The cost basis blends what you already hold with what you buy along the way. The trading fee applies to both buys and sells. Tax is capped at 99% and fees at 50%; a true 100% tax or fee would leave no proceeds, and the calculator warns instead of inventing a withdrawal figure.
 
 ### Inputs
 
