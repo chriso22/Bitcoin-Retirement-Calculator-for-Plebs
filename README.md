@@ -24,8 +24,8 @@ Everything runs in steps of your choosing: daily, weekly or monthly (monthly is 
 | Raise buys with inflation                   | Optional. Grows the buy amount by the inflation rate                                               |
 | Years the money must last                   | Length of retirement                                                                               |
 | Withdrawal to test (per day, week or month) | In today's dollars. Leave at 0 to test the maximum                                                 |
-| Bitcoin growth per year                     | Projected annual growth. Negative values are allowed, but must stay above −100%                    |
-| Inflation per year                          | Applied to withdrawals (and to buys, if the option is on). Must stay above −100%                   |
+| Bitcoin growth per year                     | Projected annual growth. Negative values are allowed, but must stay above −100% or the projection pauses |
+| Inflation per year                          | Applied to withdrawals (and to buys, if the option is on). Must stay above −100% or the projection pauses |
 | Average buy price of bitcoin you already hold ($/BTC) | Per-bitcoin average price you paid for your existing stack                               |
 | Tax on gains                                | Applied to the gain above your cost basis after trading fees                                       |
 | Trading fee                                 | Percentage of each buy and each sale                                                               |

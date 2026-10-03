@@ -82,7 +82,7 @@ svg{display:block;width:100%;min-width:420px;height:auto}
 <p class="note" id="warn" hidden></p>
 </div>
 <div class="panel chart"><strong>Your bitcoin over time</strong><div id="chart"></div></div>
-<p class="note">Constant-rate scenario math, not a forecast or advice. Bitcoin will not move in a straight line, so real results can differ a lot. Buys happen at the start of each day, week or month, depending on your choice. Withdrawals are sold on the same schedule. Tax applies only to the gain above your average cost basis after trading fees, and that basis blends what you hold with what you buy. Growth and inflation cannot be −100% or lower.</p>
+<p class="note">Constant-rate scenario math, not a forecast or advice. Bitcoin will not move in a straight line, so real results can differ a lot. Buys happen at the start of each day, week or month, depending on your choice. Withdrawals are sold on the same schedule. Tax applies only to the gain above your average cost basis after trading fees, and that basis blends what you hold with what you buy. Growth and inflation must stay above −100%.</p>
 </section>
 </div>
 </main>
@@ -93,20 +93,28 @@ var ids=["held","price","buy","years","freq","idx","len","target","cagr","infl",
 function v(i){var n=parseFloat($(i).value);return isFinite(n)?n:0}
 function usd(n){return isFinite(n)?"$"+Math.round(n).toLocaleString("en-US"):"–"}
 function btc(n){return isFinite(n)?n.toLocaleString("en-US",{maximumFractionDigits:n<1?4:2})+" BTC":"–"}
-function clampRate(x){return x<=-1?-0.9999:x}
 function amtStr(x){var n=Math.round(x*1e6)/1e6;return String(n)}
 function maxPts(pts){var mx=0,k;for(k=0;k<pts.length;k++)if(pts[k]>mx)mx=pts[k];return mx>0?mx:1}
+function showWarn(msgs){var el=$("warn");if(msgs.length){el.hidden=false;el.textContent=msgs.join(" ")}else{el.hidden=true;el.textContent=""}}
 function calc(){
 var held=Math.max(v("held"),0),P0=Math.max(v("price"),1),c=Math.max(v("buy"),0),T=Math.max(Math.round(v("years")),1),L=Math.max(Math.round(v("len")),1),target=Math.max(v("target"),0);
-var gRaw=v("cagr")/100,infRaw=v("infl")/100,g=clampRate(gRaw),inf=clampRate(infRaw);
+var g=v("cagr")/100,inf=v("infl")/100;
 var basis=Math.max(v("basis"),0),tax=Math.min(Math.max(v("tax")/100,0),0.99),fee=Math.min(Math.max(v("fee")/100,0),0.5),idx=$("idx").checked;
 var fr=$("freq").value,ppy=fr==="daily"?365:fr==="weekly"?52:12,un=fr==="daily"?"day":fr==="weekly"?"week":"month",us=fr==="daily"?"d":fr==="weekly"?"wk":"mo";
-var a=Math.pow(1+g,1/ppy),b=Math.pow(1+inf,1/ppy),M=T*ppy,R=L*ppy,j,m;
-var warns=[];
-if(gRaw<=-1||infRaw<=-1)warns.push("Growth and inflation must stay above −100%. Values at or below that were capped so the math can run.");
-if(v("tax")>99||v("fee")>50)warns.push("Tax is capped at 99% and trading fees at 50% for this calculator.");
-if((1-fee)*(1-tax)<=0)warns.push("A 100% tax or 100% trading fee leaves no sale proceeds. Lower tax and/or fees to get a usable withdrawal figure.");
 $("lblBuy").textContent="Buy each "+un+" ($)";$("lblTgt").textContent="Withdrawal to test per "+un+", in today's dollars ($). Leave 0 to test the maximum.";
+var warns=[];
+if(v("tax")>99||v("fee")>50)warns.push("Tax is capped at 99% and trading fees at 50% for this calculator.");
+if(g<=-1||inf<=-1){
+$("heroNum").textContent="–";
+$("heroLbl").textContent="Enter growth and inflation above −100% to calculate.";
+$("out").innerHTML="";
+$("chart").innerHTML="";
+warns.push("Growth and inflation must stay above −100%. The projection is paused until both rates are valid.");
+showWarn(warns);
+return;
+}
+var a=Math.pow(1+g,1/ppy),b=Math.pow(1+inf,1/ppy),M=T*ppy,R=L*ppy,j,m;
+if((1-fee)*(1-tax)<=0)warns.push("A 100% tax or 100% trading fee leaves no sale proceeds. Lower tax and/or fees to get a usable withdrawal figure.");
 var st=held,cost=held*basis,tot=0,pts=[st];
 for(j=0;j<M;j++){var cj=c*(idx?Math.pow(b,j):1);var px=P0*Math.pow(a,j);st+=px>0?cj*(1-fee)/px:0;cost+=cj;tot+=cj;pts.push(st)}
 var BT=st,bB=BT>0?cost/BT:0,PT=P0*Math.pow(a,M);
@@ -133,8 +141,7 @@ var status=run>=0?"Runs out after "+Math.floor(run/ppy)+" yr "+(run%ppy)+" "+us:
 var forever=fw===null?"Not possible":usd(fw)+" today";
 var rows=[["Bitcoin at retirement",btc(BT)],["Worth at retirement (future $)",usd(BT*PT)],["Worth in today's dollars",usd(BT*PT/Math.pow(1+inf,T))],["Total bought over "+T+" years",usd(tot)],["Average cost basis",usd(bB)],["Total cost of your stack",usd(cost)],["Max at retirement (future $)",usd(w0*Math.pow(b,M))],["Max withdrawal, forever",forever],["Withdrawal tested",usd(tw)+"/"+us+(target>0?"":" (max)")],["At retirement (future $)",usd(tw*Math.pow(b,M))+"/"+us],["Result",status],["Bitcoin left over",run>=0?"None":btc(s2)],["Left over (today's $)",usd(run>=0?0:remToday)]];
 $("out").innerHTML=rows.map(function(x){return"<dt>"+x[0]+"</dt><dd>"+x[1]+"</dd>"}).join("");
-var warnEl=$("warn");
-if(warns.length){warnEl.hidden=false;warnEl.textContent=warns.join(" ")}else{warnEl.hidden=true;warnEl.textContent=""}
+showWarn(warns);
 var tot2=pts.length-1,W=640,H=240,pl=48,pb=28,pt=12,pr=10,mx=maxPts(pts);
 function X(k){return pl+(W-pl-pr)*k/tot2}function Y(y){return pt+(H-pt-pb)*(1-y/mx)}
 var stp=Math.ceil(tot2/600)||1,ks=[],k;for(k=0;k<=tot2;k+=stp)ks.push(k);ks.push(M);ks.push(tot2);ks=ks.sort(function(x,y){return x-y}).filter(function(x,i,r){return i===0||x!==r[i-1]});
