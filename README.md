@@ -2,7 +2,7 @@
 
 How much bitcoin do you need to retire on, and what can you withdraw each month? Enter the bitcoin you hold today, a monthly dollar amount you will buy until you retire, and how many years the money has to last. The calculator shows the monthly withdrawal that covers those years and whether any bitcoin is left over.
 
-**Live:** add your GitHub Pages link here once it is published.
+**Live:** https://chriso22.github.io/Bitcoin-Retirement-Calculator-for-Plebs/
 
 ## What it models
 
@@ -10,7 +10,7 @@ Everything runs in steps of your choosing: daily, weekly or monthly (monthly is 
 
 1. **Building the stack.** Each step until retirement you buy bitcoin with your buy amount at that step's price, minus the trading fee. The price compounds by one step of your projected growth rate. You can raise the buys with inflation.
 2. **Retirement.** Each step you sell enough bitcoin to cover that step's withdrawal. You enter the withdrawal in today's dollars. The calculator inflates it to the year you retire, uses that larger figure as your first withdrawal, and keeps raising it with inflation so it holds its purchasing power.
-3. **Tax and fees.** Tax applies only to the gain above your average cost basis, not to the whole sale. The cost basis blends what you already hold with what you buy along the way. The trading fee applies to both buys and sells.
+3. **Tax and fees.** After the trading fee, tax applies only to the gain above your average cost basis, not to the whole sale. The cost basis blends what you already hold with what you buy along the way. The trading fee applies to both buys and sells. If tax plus fees would leave no sale proceeds, the calculator warns you instead of inventing a withdrawal figure.
 
 ### Inputs
 
@@ -24,10 +24,10 @@ Everything runs in steps of your choosing: daily, weekly or monthly (monthly is 
 | Raise buys with inflation                   | Optional. Grows the buy amount by the inflation rate                                               |
 | Years the money must last                   | Length of retirement                                                                               |
 | Withdrawal to test (per day, week or month) | In today's dollars. Leave at 0 to test the maximum                                                 |
-| Bitcoin growth per year                     | Projected annual growth. Negative values are allowed                                               |
-| Inflation per year                          | Applied to withdrawals (and to buys, if the option is on)                                          |
-| Cost basis of what you hold                 | Average price you paid for your existing bitcoin                                                   |
-| Tax on gains                                | Applied to the gain above your cost basis                                                          |
+| Bitcoin growth per year                     | Projected annual growth. Negative values are allowed, but must stay above −100%                    |
+| Inflation per year                          | Applied to withdrawals (and to buys, if the option is on). Must stay above −100%                   |
+| Average buy price of bitcoin you already hold ($/BTC) | Per-bitcoin average price you paid for your existing stack                               |
+| Tax on gains                                | Applied to the gain above your cost basis after trading fees                                       |
 | Trading fee                                 | Percentage of each buy and each sale                                                               |
 
 ### Live price
